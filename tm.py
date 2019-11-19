@@ -3,14 +3,7 @@ import datetime
 
 import git
 
-
-def head_iterator(repo):
-    commit = repo.head.commit
-    while True:
-        yield commit
-        if not commit.parents:
-            break
-        commit = commit.parents[0]
+import zqx_git
 
 
 def extract_tm(repo_path):
@@ -22,11 +15,9 @@ def extract_tm(repo_path):
 
     last_snap = None
 
-    for commit in head_iterator(repo):
-        if commit.committed_datetime > begin:
-            continue
-        if commit.committed_datetime < end:
-            break
+    for commit in zqx_git.filter_descending_iterator_dates(
+        zqx_git.head_iterator(repo), end, begin
+    ):
         if (
             not last_snap
             or last_snap.committed_datetime - period > commit.committed_datetime
