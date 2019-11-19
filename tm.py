@@ -6,17 +6,15 @@ import git
 import zqx_git
 
 
-def extract_tm(repo_path):
+def extract_tm(repo_path, lower, upper):
     repo = git.Repo(repo_path)
 
-    begin = datetime.datetime(2019, 11, 1, tzinfo=datetime.timezone.utc)
-    end = datetime.datetime(2019, 7, 1, tzinfo=datetime.timezone.utc)
     period = datetime.timedelta(days=7)
 
     last_snap = None
 
     for commit in zqx_git.filter_descending_iterator_dates(
-        zqx_git.head_iterator(repo), end, begin
+        zqx_git.head_iterator(repo), lower, upper
     ):
         if (
             not last_snap
@@ -39,11 +37,19 @@ def extract_tm(repo_path):
         )
 
 
+def _utc_iso(s):
+    return datetime.datetime.fromisoformat(s).replace(tzinfo=datetime.timezone.utc)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("repo_path")
+    parser.add_argument("lower", help="yyyy-mm-dd", type=_utc_iso)
+    parser.add_argument("upper", help="yyyy-mm-dd", type=_utc_iso)
     args = parser.parse_args()
-    extract_tm(args.repo_path)
+    extract_tm(
+        args.repo_path, args.lower, args.upper,
+    )
 
 
 if __name__ == "__main__":
