@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "technology-mapping"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.6"
+GitPython = "^3.0"
+
+[tool.poetry.scripts]
+technology_mapping = 'tm:main'
+
+[tool.poetry.dev-dependencies]
+ipython = "*"
+ipdb = "*"
+flake8 = "*"
+black = { version = "*", allows-prereleases = true }
+flake8-black = "*"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

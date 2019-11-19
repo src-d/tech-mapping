@@ -1,0 +1,7 @@
+DEVELOPMENT
+
+$ poetry install
+$ poetry run python tm.py --help
+
+$ poetry run black .
+$ poetry run flake8
