@@ -5,3 +5,4 @@ $ poetry run python tm.py --help
 
 $ poetry run black .
 $ poetry run flake8
+$ poetry run pytest

@@ -17,6 +17,7 @@ ipdb = "*"
 flake8 = "*"
 black = { version = "*", allows-prereleases = true }
 flake8-black = "*"
+pytest = "*"
 
 [build-system]
 requires = ["poetry>=0.12"]
